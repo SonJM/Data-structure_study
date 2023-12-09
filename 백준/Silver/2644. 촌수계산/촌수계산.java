@@ -44,7 +44,7 @@ public class Main {
         for(int i=1; i<M+1; i++){
             if(treeArray[V][i] == 0) continue;
             else if(treeArray[V][i] == 1 && visited[i]) continue;
-            else if(treeArray[V][i] == 1 && !visited[i]) {
+            else {
                 result++;
                 dfs(i, count + 1);
                 if(answerfound == true) break;
