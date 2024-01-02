@@ -8,15 +8,15 @@ class Solution {
             long minTime = 1;
 
             while(minTime<=maxTime){
-                long averageTime = (minTime + maxTime)/2;
+                long avgTime = (minTime + maxTime)/2;
                 long temp = 0;
 
                 for (int time : times) {
-                    temp += averageTime / time;
+                    temp += avgTime / time;
                     if (temp > n) break;
                 }
-                if(n > temp) minTime = averageTime + 1;
-                else maxTime = averageTime - 1;
+                if(n > temp) minTime = avgTime + 1;
+                else maxTime = avgTime - 1;
             }
             return minTime;
     }
