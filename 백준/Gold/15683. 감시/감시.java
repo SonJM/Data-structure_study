@@ -17,6 +17,7 @@ public class Main {
     }
     static int[][] map;
     static List<CCTV> cctvList = new ArrayList<>();
+    static List<CCTV> cctv5List = new ArrayList<>();
     static List<Integer> directions = new ArrayList<>();
     static int result = Integer.MAX_VALUE;
     static boolean[] visited;
@@ -33,9 +34,18 @@ public class Main {
             for(int j=0; j<W; j++){
                 int number = Integer.parseInt(st.nextToken());
                 map[i][j] = number;
-                if(number != 0 && number != 6){
+                if(number != 0 && number != 6 && number != 5){
                     cctvList.add(new CCTV(number, new Point(i, j)));
-                }
+                } else if(number == 5) cctv5List.add(new CCTV(number, new Point(i, j)));
+            }
+        }
+
+        if(!cctv5List.isEmpty()){
+            for (CCTV cctv : cctv5List) {
+                checkLeft(map, cctv.point);
+                checkRight(map, cctv.point);
+                checkUp(map, cctv.point);
+                checkDown(map, cctv.point);
             }
         }
 
