@@ -29,7 +29,7 @@ public class Main {
             int[] arr = {num+1, num-1, num+A, num+B, num-A, num-B, num*A, num*B};
             for(int i=0; i<8; i++){
                 int next = arr[i];
-                if(next < 0 || next > 100000 || dp[next] < dp[num]+1 || dp[next] != Integer.MAX_VALUE) continue;
+                if(next < 0 || next > 100000 || dp[next] != Integer.MAX_VALUE) continue;
                 dp[next] = Math.min(dp[next], dp[num] + 1);
                 queue.offer(next);
             }
