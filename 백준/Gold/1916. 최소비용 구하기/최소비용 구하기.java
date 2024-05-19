@@ -14,14 +14,12 @@ public class Main {
     }
     static int N, M;
     static List<List<Node>> nodeList = new ArrayList<>();
-    static boolean[] visited;
     static int[] distance;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         N = Integer.parseInt(st.nextToken());
-        visited = new boolean[N+1];
         distance = new int[N+1];
         Arrays.fill(distance, Integer.MAX_VALUE);
         for(int i=0; i<=N; i++) nodeList.add(new ArrayList<>());
@@ -40,27 +38,25 @@ public class Main {
         int start = Integer.parseInt(st.nextToken());
         int end = Integer.parseInt(st.nextToken());
 
-        distance[start] = 0;
-        visited[start] = true;
         dijkstra(start);
         System.out.println(distance[end]);
     }
     public static void dijkstra(int start){
-        for(int i=0; i<N; i++){
-            int nodeValue = Integer.MAX_VALUE;
-            int nodeIdx = start;
-            for(int j=1; j<=N; j++){
-                if(!visited[j] && distance[j] < nodeValue){
-                    nodeValue = distance[j];
-                    nodeIdx = j;
-                }
-            }
-            visited[nodeIdx] = true;
+        PriorityQueue<Node> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1.distance, o2.distance));
+        pq.offer(new Node(start, 0));
+        distance[start] = 0;
 
-            for(int j=0; j<nodeList.get(nodeIdx).size(); j++){
-                Node node = nodeList.get(nodeIdx).get(j);
-                if(distance[node.end] > distance[nodeIdx] + node.distance){
-                    distance[node.end] = distance[nodeIdx] + node.distance;
+        while(!pq.isEmpty()){
+            Node curNode = pq.poll();
+
+            if(distance[curNode.end] < curNode.distance){
+                continue;
+            }
+            for(int i=0; i<nodeList.get(curNode.end).size(); i++){
+                Node nextNode = nodeList.get(curNode.end).get(i);
+                if(distance[nextNode.end] > curNode.distance + nextNode.distance){
+                    distance[nextNode.end] = curNode.distance + nextNode.distance;
+                    pq.offer(new Node(nextNode.end, distance[nextNode.end]));
                 }
             }
         }
