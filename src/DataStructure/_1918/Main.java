@@ -1,4 +1,4 @@
-package Unclassified._1918;
+package DataStructure._1918;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
